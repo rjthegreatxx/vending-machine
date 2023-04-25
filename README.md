@@ -1,2 +1,2 @@
 # vending-machine
-## Vending machine demo
+**Vending machine demo**
