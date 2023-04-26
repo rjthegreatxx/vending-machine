@@ -9,6 +9,7 @@ import { AddSodaComponent } from './components/add-soda/add-soda.component';
 import { SodaDetailsComponent } from './components/soda-details/soda-details.component';
 import { SodasListComponent } from './components/sodas-list/sodas-list.component';
 import { CashListComponent } from './components/cash-list/cash-list.component';
+import { SodaPurchaseComponent } from './components/soda-purchase/soda-purchase.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { CashListComponent } from './components/cash-list/cash-list.component';
     AddSodaComponent,
     SodaDetailsComponent,
     SodasListComponent,
-    CashListComponent
+    CashListComponent,
+    SodaPurchaseComponent
   ],
   imports: [
     BrowserModule,

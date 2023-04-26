@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,6 +110,31 @@ public class VendingMachineController {
                 _soda.setName(soda.getName());
                 _soda.setPrice(soda.getPrice());
                 _soda.setQuantity(soda.getQuantity());
+                return new ResponseEntity<>(sodaService.putSoda(_soda), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/sodas/purchase/{id}")
+    public ResponseEntity<Soda> purchaseSoda(@PathVariable("id") long id) {
+        try {
+            //TODO: make this generic per quantity, move this logic to service
+            Optional<Soda> sodaData = sodaService.findById(id);
+
+            if (sodaData.isPresent()) {
+                Soda _soda = sodaData.get();
+                int newQty = _soda.getQuantity() - 1;
+                _soda.setQuantity(newQty);
+
+                BigDecimal purchaseAmo = _soda.getPrice();
+                Cash _cash = cashService.findAllOrByType("Quarters").get(0);
+                _cash.setQuantity(_cash.getQuantity() + 3);
+                cashService.putCash(_cash);
+
                 return new ResponseEntity<>(sodaService.putSoda(_soda), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);

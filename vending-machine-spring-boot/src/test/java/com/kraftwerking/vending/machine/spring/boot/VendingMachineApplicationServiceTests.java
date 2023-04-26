@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-class VendingMachineApplicationCashServiceTests {
+class VendingMachineApplicationServiceTests {
 
 	@Autowired
 	CashService cashService;
@@ -31,4 +31,5 @@ class VendingMachineApplicationCashServiceTests {
 		assertNotNull(returnCashDTO);
 		assertNotNull(returnCashDTO.getAmount());
 	}
+
 }

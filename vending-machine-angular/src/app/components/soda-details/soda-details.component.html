@@ -16,6 +16,9 @@
         <a class="badge bg-warning" routerLink="/sodas/{{ currentSoda.id }}">
             Edit
         </a>
+        <a class="badge bg-info" routerLink="/sodas/purchase/{{ currentSoda.id }}">
+            Purchase
+        </a>
     </div>
 
     <div *ngIf="!currentSoda">
