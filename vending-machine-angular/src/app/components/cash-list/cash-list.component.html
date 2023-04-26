@@ -1,0 +1,27 @@
+<div>
+    <div class="submit-form">
+        <h4>Total Cash</h4>
+        <div>
+            <label><strong>Cash:</strong></label>
+            <ul>
+                <li *ngFor="let item of totalCashDto?.cashList">
+                    Type: {{ item.type }} Value: {{ item.val }} Quantity: {{ item.quantity }}
+                </li>
+            </ul>
+        </div>
+        <div>
+            <label><strong>Total:</strong></label> ${{ totalCashDto?.totalCash }}
+        </div>
+        <div *ngIf="submitted == false">
+            <button type="submit" class="badge bg-success mb-2" (click)="dispenseQuarters()">
+                Dispense Quarters
+            </button>
+        </div>
+        <div *ngIf="submitted == true">
+            <button type="submit" class="badge bg-success mb-2" (click)="reloadPage()">
+                Update Total Cash
+            </button>
+            <div>{{ returnCashDto?.msg }} {{ returnCashDto?.amount }} </div>
+        </div>
+    </div>
+</div>

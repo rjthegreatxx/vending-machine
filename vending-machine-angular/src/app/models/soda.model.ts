@@ -3,4 +3,4 @@ export class Soda {
     name?: string;
     price?: number;
     quantity?: number;
-  }
+}

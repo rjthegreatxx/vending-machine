@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { AddSodaComponent } from './components/add-soda/add-soda.component';
 import { SodaDetailsComponent } from './components/soda-details/soda-details.component';
 import { SodasListComponent } from './components/sodas-list/sodas-list.component';
+import { CashListComponent } from './components/cash-list/cash-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddSodaComponent,
     SodaDetailsComponent,
-    SodasListComponent
+    SodasListComponent,
+    CashListComponent
   ],
   imports: [
     BrowserModule,

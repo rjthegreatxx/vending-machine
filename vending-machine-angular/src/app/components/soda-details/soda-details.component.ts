@@ -17,7 +17,7 @@ export class SodaDetailsComponent implements OnInit {
     price: 0.0,
     quantity: 0
   };
-  
+
   message = '';
 
   constructor(
