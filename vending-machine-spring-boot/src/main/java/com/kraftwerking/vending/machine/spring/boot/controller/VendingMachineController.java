@@ -125,7 +125,7 @@ public class VendingMachineController {
             //TODO: make this generic per quantity, move this logic to service
             Optional<Soda> sodaData = sodaService.findById(id);
 
-            if (sodaData.isPresent()) {
+            if (sodaData.isPresent() && sodaData.get().getQuantity() != 0) {
                 Soda _soda = sodaData.get();
                 int newQty = _soda.getQuantity() - 1;
                 _soda.setQuantity(newQty);
