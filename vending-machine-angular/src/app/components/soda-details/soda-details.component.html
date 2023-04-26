@@ -1,0 +1,84 @@
+<div *ngIf="viewMode; else editable">
+    <div *ngIf="currentSoda.id">
+      <h4>Soda</h4>
+      <div>
+        <label><strong>Name:</strong></label> {{ currentSoda.name }}
+      </div>
+      <div>
+        <label><strong>Price:</strong></label>
+        {{ currentSoda.price }}
+      </div>
+      <div>
+        <label><strong>Quantity:</strong></label>
+        {{ currentSoda.quantity }}
+      </div>
+
+      <a
+        class="badge bg-warning"
+        routerLink="/sodas/{{ currentSoda.id }}"
+      >
+        Edit
+      </a>
+    </div>
+  
+    <div *ngIf="!currentSoda">
+      <br />
+      <p>Please click on a Soda...</p>
+    </div>
+  </div>
+  
+  <ng-template #editable>
+    <div *ngIf="currentSoda.id" class="edit-form">
+      <h4>Soda</h4>
+      <form>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            [(ngModel)]="currentSoda.name"
+            name="name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input
+            type="text"
+            class="form-control"
+            id="price"
+            [(ngModel)]="currentSoda.price"
+            name="price"
+          />
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input
+              type="text"
+              class="form-control"
+              id="quantity"
+              [(ngModel)]="currentSoda.quantity"
+              name="quantity"
+            />
+          </div>
+      </form>
+  
+      <button class="badge bg-danger mr-2" (click)="deleteSoda()">
+        Delete
+      </button>
+  
+      <button
+        type="submit"
+        class="badge bg-success mb-2"
+        (click)="updateSoda()"
+      >
+        Update
+      </button>
+      <p>{{ message }}</p>
+    </div>
+  
+    <div *ngIf="!currentSoda.id">
+      <br />
+      <p>Cannot access this Soda...</p>
+    </div>
+  </ng-template>
