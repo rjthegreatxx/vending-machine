@@ -1,7 +1,6 @@
 package com.kraftwerking.vending.machine.spring.boot.controller;
 
-import com.kraftwerking.vending.machine.spring.boot.model.Cash;
-import com.kraftwerking.vending.machine.spring.boot.model.Soda;
+import com.kraftwerking.vending.machine.spring.boot.model.*;
 import com.kraftwerking.vending.machine.spring.boot.service.CashService;
 import com.kraftwerking.vending.machine.spring.boot.service.SodaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +36,20 @@ public class VendingMachineController {
     @GetMapping("/cash")
     public ResponseEntity<List<Cash>> getAllCash(@RequestParam(required = false) String type) {
         try {
-            List<Cash> cash = cashService.findAllOrByType(type);
+            List<Cash> _cash = cashService.findAllOrByType(type);
 
-            return new ResponseEntity<>(cash, HttpStatus.OK);
+            return new ResponseEntity<>(_cash, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/cash/total")
+    public ResponseEntity<TotalCashDTO> getTotalCash() {
+        try {
+            TotalCashDTO totalCashDTO = cashService.calculateTotalCash();
+
+            return new ResponseEntity<>(totalCashDTO, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -50,11 +60,7 @@ public class VendingMachineController {
         try {
             Optional<Soda> sodaData = sodaService.findById(id);
 
-            if (sodaData.isPresent()) {
-                return new ResponseEntity<>(sodaData.get(), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
+            return sodaData.map(soda -> new ResponseEntity<>(soda, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -66,6 +72,17 @@ public class VendingMachineController {
             Soda _soda = sodaService.saveSoda(soda);
 
             return new ResponseEntity<>(_soda, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/cash/getcash")
+    public ResponseEntity<ReturnCashDTO> getCash(@RequestBody GetCashDTO getCashDTO) {
+        try {
+            ReturnCashDTO _returnCashDTO = cashService.getCash(getCashDTO);
+
+            return new ResponseEntity<>(_returnCashDTO, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

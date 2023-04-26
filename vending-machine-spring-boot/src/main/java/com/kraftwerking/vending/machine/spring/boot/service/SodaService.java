@@ -21,7 +21,7 @@ public class SodaService {
 
 
     public List<Soda> findAllOrByName(String name) {
-        List<Soda> sodas = new ArrayList<Soda>();
+        List<Soda> sodas = new ArrayList<>();
 
         if (name == null)
             sodas.addAll(sodaRepository.findAll());
@@ -35,21 +35,18 @@ public class SodaService {
     }
 
     public Optional<Soda> findById(long id) {
-        Optional<Soda> sodaData = sodaRepository.findById(id);
-        return  sodaData;
+        return sodaRepository.findById(id);
 
     }
 
     public Soda saveSoda(Soda soda) {
-        Soda _soda = sodaRepository
+        return sodaRepository
                 .save(new Soda(soda.getName(), soda.getPrice(), soda.getQuantity()));
-        return _soda;
     }
 
     public Soda putSoda(Soda soda) {
-        Soda _soda = sodaRepository
+        return sodaRepository
                 .save(soda);
-        return _soda;
     }
 
     public void deleteById(long id) {

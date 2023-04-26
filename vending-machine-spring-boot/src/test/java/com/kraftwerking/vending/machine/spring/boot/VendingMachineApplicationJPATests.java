@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class VendingMachineApplicationTests {
+class VendingMachineApplicationJPATests {
 
 	@Autowired
 	SodaRepository repository;
@@ -25,7 +25,7 @@ class VendingMachineApplicationTests {
 	//@Test
 	public void should_find_no_sodas_if_repository_is_empty() {
 		Iterable<Soda> sodas = repository.findAll();
-		List<Soda> sodasList = new ArrayList<Soda>();
+		List<Soda> sodasList = new ArrayList<>();
 		sodas.forEach(sodasList::add);
 
 		assertTrue(sodasList.isEmpty());
@@ -37,9 +37,9 @@ class VendingMachineApplicationTests {
 		Soda soda = repository.save(new Soda("Coca Cola", new BigDecimal("0.75"), 10));
 
 		assertNotNull(soda);
-		assertTrue(soda.getName().equals("Coca Cola"));
-		assertTrue(soda.getPrice().equals(new BigDecimal("0.75")));
-		assertTrue(soda.getQuantity() == 10);
+		assertEquals("Coca Cola", soda.getName());
+		assertEquals(soda.getPrice(), new BigDecimal("0.75"));
+		assertEquals(10, soda.getQuantity());
 	}
 
 	@Test
@@ -51,7 +51,7 @@ class VendingMachineApplicationTests {
 		Soda soda3 = repository.save(new Soda("Mug Root Beer", new BigDecimal("0.75"), 10));
 
 		Iterable<Soda> sodas = repository.findAll();
-		List<Soda> sodasList = new ArrayList<Soda>();
+		List<Soda> sodasList = new ArrayList<>();
 		sodas.forEach(sodasList::add);
 		assertTrue(sodasList.size() > 3);
 
@@ -67,7 +67,7 @@ class VendingMachineApplicationTests {
 
 		assertNotNull(foundSoda);
 		assertEquals("Cream Soda", foundSoda.getName());
-		assertTrue(foundSoda.getPrice().equals(new BigDecimal("0.75")));
+		assertEquals(foundSoda.getPrice(), new BigDecimal("0.75"));
 	}
 
 //	@Test
@@ -79,7 +79,7 @@ class VendingMachineApplicationTests {
 		Soda soda3 = repository.save(new Soda("Mountain Dew", new BigDecimal("0.75"), 10));
 
 		Iterable<Soda> sodas = repository.findAll();
-		List<Soda> sodasList = new ArrayList<Soda>();
+		List<Soda> sodasList = new ArrayList<>();
 		sodas.forEach(sodasList::add);
 
 		int size = sodasList.size();
@@ -87,7 +87,7 @@ class VendingMachineApplicationTests {
 		repository.deleteById(soda1.getId());
 
 		sodas = repository.findAll();
-		sodasList = new ArrayList<Soda>();
+		sodasList = new ArrayList<>();
 		sodas.forEach(sodasList::add);
 
 		int size2 = sodasList.size();
@@ -103,7 +103,7 @@ class VendingMachineApplicationTests {
 		repository.deleteAll();
 
 		Iterable<Soda> sodas = repository.findAll();
-		List<Soda> sodasList = new ArrayList<Soda>();
+		List<Soda> sodasList = new ArrayList<>();
 		sodas.forEach(sodasList::add);
 		assertTrue(sodasList.isEmpty());
 
