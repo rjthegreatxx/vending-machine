@@ -1,6 +1,8 @@
 package com.kraftwerking.vending.machine.spring.boot;
 
+import com.kraftwerking.vending.machine.spring.boot.model.Cash;
 import com.kraftwerking.vending.machine.spring.boot.model.Soda;
+import com.kraftwerking.vending.machine.spring.boot.repository.CashRepository;
 import com.kraftwerking.vending.machine.spring.boot.repository.SodaRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ class VendingMachineApplicationJPATests {
 
 	@Autowired
 	SodaRepository repository;
+
+	@Autowired
+	CashRepository cashRepository;
 
 	@Test
 	void contextLoads() {
@@ -96,7 +101,7 @@ class VendingMachineApplicationJPATests {
 
 	}
 
-//	@Test
+	@Test
 	public void should_delete_all_sodas() {
 		Soda soda3 = repository.save(new Soda("Gatorade", new BigDecimal("0.75"), 10));
 
@@ -106,6 +111,37 @@ class VendingMachineApplicationJPATests {
 		List<Soda> sodasList = new ArrayList<>();
 		sodas.forEach(sodasList::add);
 		assertTrue(sodasList.isEmpty());
+
+	}
+
+	@Test
+	public void create_test_data() {
+		Cash cash = cashRepository.save(new Cash("Quarters", new BigDecimal("0.25"), 80));
+
+		Soda soda = repository.save(new Soda("Coca Cola", new BigDecimal("0.75"), 10));
+
+		Soda soda1 = repository.save(new Soda("Diet Coke", new BigDecimal("0.75"), 10));
+
+		Soda soda2 = repository.save(new Soda("Sprite", new BigDecimal("0.75"), 10));
+
+		Soda soda3 = repository.save(new Soda("Mug Root Beer", new BigDecimal("0.75"), 10));
+
+		Soda soda4 = repository.save(new Soda("Gatorade", new BigDecimal("0.75"), 10));
+
+		Soda soda5 = repository.save(new Soda("Orange Fanta", new BigDecimal("0.75"), 10));
+
+		Soda soda6 = repository.save(new Soda("Cream Soda", new BigDecimal("0.75"), 10));
+
+		Soda soda7 = repository.save(new Soda("Grape Fanta", new BigDecimal("0.75"), 10));
+
+		Soda soda8 = repository.save(new Soda("Cherry Coke", new BigDecimal("0.75"), 10));
+
+		Soda soda9 = repository.save(new Soda("Mountain Dew", new BigDecimal("0.75"), 10));
+
+		Iterable<Soda> sodas = repository.findAll();
+		List<Soda> sodasList = new ArrayList<>();
+		sodas.forEach(sodasList::add);
+		assertFalse(sodasList.isEmpty());
 
 	}
 }

@@ -10,7 +10,7 @@
             </ul>
         </div>
         <div>
-            <label><strong>Total:</strong></label> ${{ totalCashDto?.totalCash }}
+            <label><strong>Total:</strong></label> ${{ totalCashDto?.totalCash.toFixed(2) }}
         </div>
         <div *ngIf="submitted == false">
             <button type="submit" class="badge bg-success mb-2" (click)="dispenseQuarters()">
@@ -18,7 +18,7 @@
             </button>
         </div>
         <div *ngIf="submitted == true">
-            <button type="submit" class="badge bg-success mb-2" (click)="reloadPage()">
+            <button type="submit" class="badge bg-primary mb-2" (click)="reloadPage()">
                 Update Total Cash
             </button>
             <div>{{ returnCashDto?.msg }} {{ returnCashDto?.amount }} </div>

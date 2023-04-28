@@ -55,9 +55,7 @@ public class CashService {
         List<Cash> cashList = new ArrayList<>(cashRepository.findAll());
         BigDecimal totalCash = new BigDecimal("0.00");
 
-        totalCash = cashList.stream().map(c ->{
-                    return c.getVal().multiply(new BigDecimal(c.getQuantity()));
-        })
+        totalCash = cashList.stream().map(c -> c.getVal().multiply(new BigDecimal(c.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return new TotalCashDTO(cashList, totalCash);
