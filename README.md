@@ -18,7 +18,7 @@ Spring boot backend
 
 <ol>
   <li>Java 17</li>
-  <li>Spring Boot 3</li>
+  <li>Spring Boot 3.0.6</li>
   <li>Maven 3.6.1</li>
   <li>PostgreSQL 15</li>
 </ol>
@@ -45,7 +45,8 @@ Angular front end
 
 <ol>
   <li>Angular 14</li>
-  <li>Bootstrap 4</li>
+  <li>Node.js 18.14.2</li>
+  <li>Bootstrap 5.2.3</li>
 </ol>
 
 **Install and Run**
