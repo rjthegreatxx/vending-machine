@@ -1,5 +1,5 @@
 export class Returncashdto {
     type?: string;
-    msg?: number;
+    msg?: string;
     amount?: number;
 }

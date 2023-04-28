@@ -1,53 +1,104 @@
 <div *ngIf="viewMode; else editable">
-    <div *ngIf="currentSoda.id">
-        <h4>Soda</h4>
-        <div>
-            <label><strong>Name:</strong></label> {{ currentSoda.name }}
-        </div>
-        <div>
-            <label><strong>Price:</strong></label>
-            {{ currentSoda.price }}
-        </div>
-        <div>
-            <label><strong>Quantity:</strong></label>
-            {{ currentSoda.quantity }}
-        </div>
-
-        <a class="badge bg-success" routerLink="/vendingmachine/{{ currentSoda.id }}">
-            Purchase
-        </a>
+  <div *ngIf="currentSoda.id">
+    <h4>Soda</h4>
+    <div>
+      <label><strong>Name:</strong></label> {{ currentSoda.name }}
+    </div>
+    <div>
+      <label><strong>Price:</strong></label>
+      {{ currentSoda.price }}
+    </div>
+    <div>
+      <label><strong>Quantity:</strong></label>
+      {{ currentSoda.quantity }}
     </div>
 
-    <div *ngIf="!currentSoda">
-        <br />
-        <p>Please click on a Soda...</p>
-    </div>
+    <a class="badge bg-success" routerLink="/vendingmachine/{{ currentSoda.id }}">
+      Purchase
+    </a>
+  </div>
+
+  <div *ngIf="!currentSoda">
+    <br />
+    <p>Please click on a Soda...</p>
+  </div>
 </div>
 
 <ng-template #editable>
-    <div *ngIf="currentSoda.id" class="edit-form">
-        <h4>Soda</h4>
-        <form>
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" [(ngModel)]="currentSoda.name" name="name" />
-            </div>
-            <div class="form-group">
-                <label for="price">Price</label>
-                <input type="text" class="form-control" id="price" [(ngModel)]="currentSoda.price" name="price" />
-            </div>
-            <div class="form-group">
-                <label for="quantity">Quantity</label>
-                <input type="text" class="form-control" id="quantity" [(ngModel)]="currentSoda.quantity"
-                    name="quantity" />
-            </div>
-        </form>
-
-        <p>{{ message }}</p>
+  <div *ngIf="submitted == false">
+    <form *ngIf="currentSoda.id" class="edit-form" (ngSubmit)="onPurchaseSoda()">
+      <h4>{{currentSoda.name}}</h4>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Deposit Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="price" [(ngModel)]="currentSoda.price" name="price"
+                    disabled />
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="quantity" [(ngModel)]="currentSoda.quantity"
+                    name="quantity" disabled />
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <input type="number" class="form-control" id="depositAmount" [(ngModel)]="depositAmount"
+                    name="depositAmount" step="0.25" [value]="depositAmount || '0.00'" min="0" />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button type="submit" class="badge bg-info mb-2">
+        Purchase
+      </button>
+      <p>{{ message }}</p>
+    </form>
+  </div>
+  <div *ngIf="submitted == true">
+    <h4>Soda</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Message</th>
+          <th>Change Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{returnsodadto.name}}</td>
+          <td>{{returnsodadto.quantity}}</td>
+          <td>{{returnsodadto.msg}}</td>
+          <td>{{returnsodadto.changeAmount}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!returnsodadto.name">
+      <p>Sold Out!</p>
     </div>
-
-    <div *ngIf="!currentSoda.id">
-        <br />
-        <p>Cannot access this Soda...</p>
+    <div *ngIf="returnsodadto.name">
+      <p>Purchase was submitted successfully!</p>
     </div>
+    <a routerLink="/vendingmachine"><button class="m-3 btn btn-sm btn-success">Back</button></a>
+  </div>
+
+
+  <div *ngIf="!currentSoda.id">
+    <br />
+    <p>Cannot access this Soda...</p>
+  </div>
 </ng-template>

@@ -20,10 +20,6 @@ export class SodaService {
     return this.http.get<Soda>(`${baseUrl}/${id}`);
   }
 
-  purchase(id: any): Observable<Soda> {
-    return this.http.get<Soda>(`${baseUrl}/purchase/${id}`);
-  }
-
   create(data: any): Observable<any> {
     return this.http.post(baseUrl, data);
   }

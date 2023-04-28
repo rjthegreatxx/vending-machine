@@ -52,12 +52,12 @@ class VendingMachineApplicationServiceTests {
 		Cash cash = cashRepository.findByTypeContaining("Quarters").get(0);
 		assertNotNull(cash);
 
-		PurchaseSodaDTO purchaseSodaDTO = new PurchaseSodaDTO(soda.getId(),1, new BigDecimal("0.75"));
+		PurchaseSodaDTO purchaseSodaDTO = new PurchaseSodaDTO(soda.getId(),1, "0.75");
 		ReturnSodaDTO returnSodaDTO = vendingMachineService.purchaseSoda(purchaseSodaDTO);
 		assertNotNull(returnSodaDTO);
 		assertEquals(returnSodaDTO.getQuantity(), 1);
 		assertEquals(returnSodaDTO.getMsg(), "Enjoy!");
-		assertEquals(returnSodaDTO.getChangeAmount(), new BigDecimal("0.00"));
+		assertEquals(returnSodaDTO.getChangeAmount(), "0.00");
 
 		Soda _soda = repository.findById(soda.getId()).get();
 		assertEquals(returnSodaDTO.getName(), _soda.getName());
@@ -76,12 +76,12 @@ class VendingMachineApplicationServiceTests {
 		Cash cash = cashRepository.findByTypeContaining("Quarters").get(0);
 		assertNotNull(cash);
 
-		PurchaseSodaDTO purchaseSodaDTO = new PurchaseSodaDTO(soda.getId(),1, new BigDecimal("1.25"));
+		PurchaseSodaDTO purchaseSodaDTO = new PurchaseSodaDTO(soda.getId(),1, "1.25");
 		ReturnSodaDTO returnSodaDTO = vendingMachineService.purchaseSoda(purchaseSodaDTO);
 		assertNotNull(returnSodaDTO);
 		assertEquals(returnSodaDTO.getQuantity(), 1);
 		assertEquals(returnSodaDTO.getMsg(), "Enjoy!");
-		assertEquals(returnSodaDTO.getChangeAmount(), new BigDecimal("0.50"));
+		assertEquals(returnSodaDTO.getChangeAmount(), "0.50");
 
 		Soda _soda = repository.findById(soda.getId()).get();
 		assertEquals(returnSodaDTO.getName(), _soda.getName());
@@ -96,7 +96,7 @@ class VendingMachineApplicationServiceTests {
 		Soda soda = repository.save(new Soda("Caffeine Free Diet Coke", new BigDecimal("0.75"), 0));
 		assertNotNull(soda);
 
-		PurchaseSodaDTO purchaseSodaDTO = new PurchaseSodaDTO(soda.getId(),1, new BigDecimal("0.75"));
+		PurchaseSodaDTO purchaseSodaDTO = new PurchaseSodaDTO(soda.getId(),1, "0.75");
 		ReturnSodaDTO returnSodaDTO = vendingMachineService.purchaseSoda(purchaseSodaDTO);
 		assertNotNull(returnSodaDTO);
 		assertEquals(returnSodaDTO.getQuantity(), 0);
@@ -110,7 +110,7 @@ class VendingMachineApplicationServiceTests {
 		Soda soda = repository.save(new Soda("Caffeine Free Diet Coke", new BigDecimal("0.75"), 10));
 		assertNotNull(soda);
 
-		PurchaseSodaDTO purchaseSodaDTO = new PurchaseSodaDTO(soda.getId(),1, new BigDecimal("0.25"));
+		PurchaseSodaDTO purchaseSodaDTO = new PurchaseSodaDTO(soda.getId(),1, "0.25");
 		ReturnSodaDTO returnSodaDTO = vendingMachineService.purchaseSoda(purchaseSodaDTO);
 		assertNotNull(returnSodaDTO);
 		assertEquals(returnSodaDTO.getQuantity(), 0);
