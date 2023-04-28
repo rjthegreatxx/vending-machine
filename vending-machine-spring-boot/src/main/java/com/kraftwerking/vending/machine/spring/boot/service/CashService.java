@@ -5,6 +5,7 @@ import com.kraftwerking.vending.machine.spring.boot.model.GetCashDTO;
 import com.kraftwerking.vending.machine.spring.boot.model.ReturnCashDTO;
 import com.kraftwerking.vending.machine.spring.boot.model.TotalCashDTO;
 import com.kraftwerking.vending.machine.spring.boot.repository.CashRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,30 +15,36 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class CashService {
 
     @Autowired
     CashRepository cashRepository;
     public Cash saveCash(Cash cash) {
+        log.info("Save cash " + cash.getId());
         return cashRepository
                 .save(new Cash(cash.getType(), cash.getVal(), cash.getQuantity()));
     }
 
     public Cash putCash(Cash cash) {
+        log.info("Put cash " + cash.getId());
         return cashRepository
                 .save(cash);
     }
 
     public void deleteAll() {
+        log.info("Delete all cash ");
         cashRepository.deleteAll();
 
     }
 
     public Optional<Cash> findById(long id) {
+        log.info("Find cash " + id);
         return cashRepository.findById(id);
     }
 
     public List<Cash> findAllOrByType(String type) {
+        log.info("Find all cash or by type");
         List<Cash> cash = new ArrayList<>();
 
         if (type == null)
@@ -52,6 +59,7 @@ public class CashService {
     }
 
     public TotalCashDTO calculateTotalCash() {
+        log.info("Calculate total cash");
         List<Cash> cashList = new ArrayList<>(cashRepository.findAll());
         BigDecimal totalCash = new BigDecimal("0.00");
 
@@ -62,6 +70,7 @@ public class CashService {
     }
 
     public ReturnCashDTO getCash(GetCashDTO getCashDTO) {
+        log.info("Get cash " + getCashDTO.getQuantity() + " " + getCashDTO.getType());
         List<Cash> cashList = cashRepository.findByTypeContaining(getCashDTO.getType());
         ReturnCashDTO returnCashDTO = new ReturnCashDTO(getCashDTO.getType(), "Out of cash", new BigDecimal("0.00"));
 

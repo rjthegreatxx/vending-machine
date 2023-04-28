@@ -5,6 +5,7 @@ import com.kraftwerking.vending.machine.spring.boot.model.GetCashDTO;
 import com.kraftwerking.vending.machine.spring.boot.model.ReturnCashDTO;
 import com.kraftwerking.vending.machine.spring.boot.model.TotalCashDTO;
 import com.kraftwerking.vending.machine.spring.boot.service.CashService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
+@Slf4j
 @RequestMapping("/api")
 public class CashController {
 
@@ -25,6 +27,7 @@ public class CashController {
     @GetMapping("/cash")
     public ResponseEntity<List<Cash>> getAllCash(@RequestParam(required = false) String type) {
         try {
+            log.info("Get all cash");
             List<Cash> _cash = cashService.findAllOrByType(type);
 
             return new ResponseEntity<>(_cash, HttpStatus.OK);
@@ -36,6 +39,7 @@ public class CashController {
     @GetMapping("/cash/total")
     public ResponseEntity<TotalCashDTO> getTotalCash() {
         try {
+            log.info("Get total cash");
             TotalCashDTO totalCashDTO = cashService.calculateTotalCash();
 
             return new ResponseEntity<>(totalCashDTO, HttpStatus.OK);
@@ -47,6 +51,7 @@ public class CashController {
     @PostMapping("/cash/getcash")
     public ResponseEntity<ReturnCashDTO> getCash(@RequestBody GetCashDTO getCashDTO) {
         try {
+            log.info("Get cash");
             ReturnCashDTO _returnCashDTO = cashService.getCash(getCashDTO);
 
             return new ResponseEntity<>(_returnCashDTO, HttpStatus.CREATED);
@@ -58,6 +63,7 @@ public class CashController {
     @PostMapping("/cash")
     public ResponseEntity<Cash> createCash(@RequestBody Cash cash) {
         try {
+            log.info("Create new cash");
             Cash _cash = cashService.saveCash(cash);
 
             return new ResponseEntity<>(_cash, HttpStatus.CREATED);
@@ -69,6 +75,7 @@ public class CashController {
     @PutMapping("/cash/{id}")
     public ResponseEntity<Cash> updateCash(@PathVariable("id") long id, @RequestBody Cash cash) {
         try {
+            log.info("Update cash");
             Optional<Cash> cashData = cashService.findById(id);
 
             if (cashData.isPresent()) {
@@ -88,6 +95,7 @@ public class CashController {
     @DeleteMapping("/cash")
     public ResponseEntity<HttpStatus> deleteAllCash() {
         try {
+            log.info("Delete all cash");
             cashService.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {

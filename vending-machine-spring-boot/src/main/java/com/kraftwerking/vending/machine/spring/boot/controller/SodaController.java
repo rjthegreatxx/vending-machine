@@ -2,6 +2,7 @@ package com.kraftwerking.vending.machine.spring.boot.controller;
 
 import com.kraftwerking.vending.machine.spring.boot.model.Soda;
 import com.kraftwerking.vending.machine.spring.boot.service.SodaService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
+@Slf4j
 @RequestMapping("/api")
 public class SodaController {
 
@@ -21,6 +23,7 @@ public class SodaController {
     @GetMapping("/sodas")
     public ResponseEntity<List<Soda>> getAllSodas(@RequestParam(required = false) String name) {
         try {
+            log.info("Get all sodas");
             List<Soda> sodas = sodaService.findAllOrByName(name);
 
             return new ResponseEntity<>(sodas, HttpStatus.OK);
@@ -32,6 +35,7 @@ public class SodaController {
     @GetMapping("/sodas/{id}")
     public ResponseEntity<Soda> getSodaById(@PathVariable("id") long id) {
         try {
+            log.info("Get soda  " + id);
             Optional<Soda> sodaData = sodaService.findById(id);
 
             return sodaData.map(soda -> new ResponseEntity<>(soda, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -43,6 +47,7 @@ public class SodaController {
     @PostMapping("/sodas")
     public ResponseEntity<Soda> createSoda(@RequestBody Soda soda) {
         try {
+            log.info("Save all sodas");
             Soda _soda = sodaService.saveSoda(soda);
 
             return new ResponseEntity<>(_soda, HttpStatus.CREATED);
@@ -54,6 +59,7 @@ public class SodaController {
     @PutMapping("/sodas/{id}")
     public ResponseEntity<Soda> updateSoda(@PathVariable("id") long id, @RequestBody Soda soda) {
         try {
+            log.info("Put soda  " + id);
             Optional<Soda> sodaData = sodaService.findById(id);
 
             if (sodaData.isPresent()) {
@@ -73,6 +79,7 @@ public class SodaController {
     @DeleteMapping("/sodas/{id}")
     public ResponseEntity<HttpStatus> deleteSoda(@PathVariable("id") long id) {
         try {
+            log.info("Delete soda  " + id);
             sodaService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
@@ -83,6 +90,7 @@ public class SodaController {
     @DeleteMapping("/sodas")
     public ResponseEntity<HttpStatus> deleteAllSodas() {
         try {
+            log.info("Delete all sodas");
             sodaService.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
