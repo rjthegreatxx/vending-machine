@@ -34,8 +34,8 @@ Spring boot backend
 
     java -jar target/vending-machine-spring-boot-0.0.1-SNAPSHOT.jar
 
-Recommended: alternately you can run in IntelliJ using Maven tools.  See unit tests and Swagger for integration testing.
-
+Recommended: alternately you can run in IntelliJ using Maven tools.  See unit tests and Swagger for integration testing 
+http://localhost:8080/swagger-ui/
 
 **vending-machine-angular**
 
@@ -56,6 +56,7 @@ Angular front end
 
 <ol>
   <li>More unit tests</li>
+  <li>Mocking for jpa in unit tests</li>
   <li>Form validation</li>
   <li>Better dom manipulation and angular form behavior</li>
 </ol>

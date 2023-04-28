@@ -106,6 +106,7 @@ class VendingMachineApplicationJPATests {
 		Soda soda3 = repository.save(new Soda("Gatorade", new BigDecimal("0.75"), 10));
 
 		repository.deleteAll();
+		cashRepository.deleteAll();
 
 		Iterable<Soda> sodas = repository.findAll();
 		List<Soda> sodasList = new ArrayList<>();
