@@ -32,12 +32,12 @@ export class CashListComponent implements OnInit {
   }
 
   dispenseQuarters(): void {
-    const data = {
+    const getcashDto = {
       type: "Quarters",
       quantity: 1
     };
 
-    this.cashService.dispenseQuarters(data)
+    this.cashService.dispenseQuarters(getcashDto)
       .subscribe({
         next: (res) => {
           this.returnCashDto = res;
